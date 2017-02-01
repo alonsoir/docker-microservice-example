@@ -1,0 +1,40 @@
+version: '2'
+services:
+  postgres-example: # Entrada para definir el contenedor. Por defecto este nombre se usa como hostname
+    container_name: postgres-example
+    build:
+      context: postgres
+    volumes:  # Definición de volúmenes
+      - data:/var/lib/postgresql/data
+    environment: # Definición de variables de entorno
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: secret
+    ports:  # Mapeo de puertos
+      - "5432:5432"
+    networks:
+      - example-network
+
+  users-microservice-example:
+    container_name: users-microservice-example
+    build:
+      context: .
+      dockerfile: src/main/docker/Dockerfile
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres-example/postgres # el hostname 'postgres' viene del nombre de la entrada al contendor
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: secret
+    ports:
+      - "8080:8080"
+    links:
+      - postgres-example
+    networks:
+      - example-network
+    depends_on:
+      - postgres-example
+
+networks:
+    example-network:
+        driver: bridge
+
+volumes:
+  data:
