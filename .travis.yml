@@ -9,4 +9,4 @@ deploy:
   provider: heroku
   api_key:
     secure: 57adcd00-307e-4f65-af89-03c97e9e13ab
-script: mvn clean verify -Pheroku
+script: mvn clean verify 
