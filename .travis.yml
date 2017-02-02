@@ -5,9 +5,7 @@ sudo: false
 install: true
 git:
   depth: 3
-deploy:
-  provider: heroku
-  api_key:
-    secure: AwjEcwnB0AN2HNaNYlvCWxFM8atgzJfuJKPuJtTW9Zzv16+mxGQkXzn7zjQ1VAGwa7cUP1DEz9BS7z+ROyK4SFzEZENQhseFnJ8Rgd6lW3xSj5ofOhXuwjfAhrhMWjM5vBCe+an14hxMdYJVn2BrCfSPXAfK2KVjW6ywN9ovgBpDFK9fEl+WR1dK9x6HKdF8JXzggFjhTl8NpynIc/OIRtE25ewPTF2KCtTExsb63VF/Jq6myDa03P4Gw0GlUFGfmQ+rHH0es8XFZ0HltpueASUGiUAYF4GyrMchqXTAnT9liijeQ3KjBgelhcPiGnqbcut4als+ieSi1zbWfSD3cBw/qyRI3JllXLQZk1gjVzqM2mTgHcooTFF7jBwpk/4+0x0UG+udWlFeP6JfaAMq+suRgQIT1TQ9/FoLIkaTRHWNYSDfU8ZtHVSRUhWM7XpCUmcmPCPMPTC90T6IuuGSLWLyTQseF8n9eqQYQO7qbQoIqFlVUo5kq1+ldb5euN6QJC7fVSKNf7X6ihIsiMjT9uTRZdGw8NXd4WAiWSgtrs9kdJWYLGYWKnRVQCy9m8qyO9cltIqo5Wfht9FWyNHdjdLnkLoRNFbsSKKstc3hYR0f9ZG7pXAI6UTE3YwO6EFiikAkBm6k8cErG6OoDsdXg8t/Cw2IFL8KGZaHmij9IBc=
-  app: users-microservice-example
-script: mvn clean verify -Dspring.profiles.active=heroku
+
+script:
+  HEROKU_API_KEY="57adcd00-307e-4f65-af89-03c97e9e13ab" mvn clean verify -Pheroku
+
