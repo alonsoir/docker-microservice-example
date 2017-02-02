@@ -10,5 +10,10 @@ install: true # skip the installation step
 git:
   depth: 3 # Travis CI clones git repos to a depth of 50 commits
 
+deploy:
+  provider: heroku
+  api_key:
+    secure: "YOUR ENCRYPTED API KEY"
+
 script:
-  HEROKU_API_KEY="57adcd00-307e-4f65-af89-03c97e9e13ab" mvn clean verify -Pheroku
+  mvn clean verify -Pheroku
