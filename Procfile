@@ -1,0 +1,1 @@
+web: java $JAVA_OPTS -jar target/docker-microservice-example.jar --spring.profiles.active=heroku
