@@ -18,73 +18,192 @@
   </parent>
 
   <properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <java.version>1.8</java.version>
+      <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+      <java.version>1.8</java.version>
+      <cucumber.java.version>1.2.5</cucumber.java.version>
+      <gherkin.version>2.12.2</gherkin.version>
+      <groovy.version>2.0.0</groovy.version>
+      <gmaven.version>1.5</gmaven.version>
   </properties>
 
   <build>
     <plugins>
-      <plugin>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-maven-plugin</artifactId>
-      </plugin>
+        <!-- Plugin para compilar groovy -->
+        <plugin>
+            <groupId>org.codehaus.gmavenplus</groupId>
+            <artifactId>gmavenplus-plugin</artifactId>
+            <version>${gmaven.version}</version>
+            <configuration>
+                <providerSelection>${gmavenProviderSelection}</providerSelection>
+                <sourceEncoding>UTF-8</sourceEncoding>
+                <testSources>
+                    <testSource>
+                        <directory>${project.basedir}/src/test/groovy</directory>
+                        <includes>
+                            <include>**/*.groovy</include>
+                        </includes>
+                    </testSource>
+                    <testSource>
+                        <directory>${project.basedir}/src/itest/groovy</directory>
+                        <includes>
+                            <include>**/*.groovy</include>
+                        </includes>
+                    </testSource>
+                </testSources>
+            </configuration>
+            <executions>
+                <execution>
+                    <goals>
+                        <goal>addTestSources</goal>
+                        <goal>generateStubs</goal>
+                        <goal>compile</goal>
+                        <goal>testGenerateStubs</goal>
+                        <goal>testCompile</goal>
+                    </goals>
+                </execution>
+            </executions>
+            <dependencies>
+                <dependency>
+                    <groupId>org.codehaus.groovy</groupId>
+                    <artifactId>groovy-all</artifactId>
+                    <version>${groovy.version}</version>
+                </dependency>
+            </dependencies>
+        </plugin>
+
+        <plugin>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-maven-plugin</artifactId>
+        </plugin>
     </plugins>
   </build>
 
   <dependencies>
 
     <!-- Test dependencies  -->
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-test</artifactId>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.spockframework</groupId>
-      <artifactId>spock-core</artifactId>
-      <version>1.0-groovy-2.4</version>
-      <scope>test</scope>
-    </dependency>
+      <dependency>
+          <groupId>org.springframework.boot</groupId>
+          <artifactId>spring-boot-starter-test</artifactId>
+          <scope>test</scope>
+      </dependency>
 
-    <!--Spring boot dependencies -->
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-web</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-data-jpa</artifactId>
-    </dependency>
+      <!-- Cucumber BDD Dependencies -->
+      <dependency>
+          <groupId>info.cukes</groupId>
+          <artifactId>cucumber-core</artifactId>
+          <version>${cucumber.java.version}</version>
+          <scope>test</scope>
+      </dependency>
+      <dependency>
+          <groupId>info.cukes</groupId>
+          <artifactId>cucumber-java</artifactId>
+          <version>${cucumber.java.version}</version>
+          <scope>test</scope>
+      </dependency>
+      <dependency>
+          <groupId>info.cukes</groupId>
+          <artifactId>cucumber-junit</artifactId>
+          <version>${cucumber.java.version}</version>
+          <scope>test</scope>
+      </dependency>
+      <dependency>
+          <groupId>info.cukes</groupId>
+          <artifactId>gherkin</artifactId>
+          <version>${gherkin.version}</version>
+          <scope>test</scope>
+      </dependency>
+      <dependency>
+          <groupId>info.cukes</groupId>
+          <artifactId>cucumber-spring</artifactId>
+          <version>${cucumber.java.version}</version>
+          <scope>test</scope>
+      </dependency>
 
-    <dependency>
-      <groupId>org.slf4j</groupId>
-      <artifactId>slf4j-api</artifactId>
-      <version>1.7.21</version>
-    </dependency>
+      <dependency>
+          <groupId>org.codehaus.groovy</groupId>
+          <artifactId>groovy-all</artifactId>
+          <version>${groovy.version}</version>
+          <scope>test</scope>
+      </dependency>
 
-    <dependency>
-      <groupId>ch.qos.logback</groupId>
-      <artifactId>logback-classic</artifactId>
-      <version>1.1.8</version>
-    </dependency>
+      <!--Spring boot dependencies -->
+      <dependency>
+          <groupId>org.springframework.boot</groupId>
+          <artifactId>spring-boot-starter-web</artifactId>
+      </dependency>
+      <dependency>
+          <groupId>org.springframework.boot</groupId>
+          <artifactId>spring-boot-starter-data-jpa</artifactId>
+      </dependency>
 
-    <dependency>
-      <groupId>ch.qos.logback</groupId>
-      <artifactId>logback-core</artifactId>
-      <version>1.1.8</version>
-    </dependency>
+      <dependency>
+          <groupId>org.slf4j</groupId>
+          <artifactId>slf4j-api</artifactId>
+          <version>1.7.21</version>
+      </dependency>
 
-    <dependency>
-      <groupId>com.h2database</groupId>
-      <artifactId>h2</artifactId>
-      <scope>runtime</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.postgresql</groupId>
-      <artifactId>postgresql</artifactId>
-      <version>9.4-1206-jdbc42</version>
-      <scope>runtime</scope>
-    </dependency>
+      <dependency>
+          <groupId>ch.qos.logback</groupId>
+          <artifactId>logback-classic</artifactId>
+          <version>1.1.8</version>
+      </dependency>
+
+      <dependency>
+          <groupId>ch.qos.logback</groupId>
+          <artifactId>logback-core</artifactId>
+          <version>1.1.8</version>
+      </dependency>
+
+      <dependency>
+          <groupId>com.h2database</groupId>
+          <artifactId>h2</artifactId>
+          <scope>runtime</scope>
+      </dependency>
+      <dependency>
+          <groupId>org.postgresql</groupId>
+          <artifactId>postgresql</artifactId>
+          <version>9.4-1206-jdbc42</version>
+          <scope>runtime</scope>
+      </dependency>
+      <!--Spring boot dependencies -->
+      <dependency>
+          <groupId>org.springframework.boot</groupId>
+          <artifactId>spring-boot-starter-web</artifactId>
+      </dependency>
+      <dependency>
+          <groupId>org.springframework.boot</groupId>
+          <artifactId>spring-boot-starter-data-jpa</artifactId>
+      </dependency>
+
+      <dependency>
+          <groupId>org.slf4j</groupId>
+          <artifactId>slf4j-api</artifactId>
+          <version>1.7.21</version>
+      </dependency>
+
+      <dependency>
+          <groupId>ch.qos.logback</groupId>
+          <artifactId>logback-classic</artifactId>
+          <version>1.1.8</version>
+      </dependency>
+
+      <dependency>
+          <groupId>ch.qos.logback</groupId>
+          <artifactId>logback-core</artifactId>
+          <version>1.1.8</version>
+      </dependency>
+
+      <dependency>
+          <groupId>com.h2database</groupId>
+          <artifactId>h2</artifactId>
+          <scope>runtime</scope>
+      </dependency>
+      <dependency>
+          <groupId>org.postgresql</groupId>
+          <artifactId>postgresql</artifactId>
+          <version>9.4-1206-jdbc42</version>
+          <scope>runtime</scope>
+      </dependency>
 
   </dependencies>
 </project>
