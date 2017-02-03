@@ -2,6 +2,7 @@ package cabanas.garcia.ismael.examples.rest;
 
 import cabanas.garcia.ismael.examples.domain.User;
 import cabanas.garcia.ismael.examples.repository.UserRepository;
+import cabanas.garcia.ismael.examples.rest.response.UserResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,12 +29,16 @@ public class UserController {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<Void> create(@RequestBody User user){
+    public ResponseEntity<UserResponse> create(@RequestBody User user){
         LOGGER.debug("Creating user %s", user);
 
         userRepository.save(user);
 
-        return new ResponseEntity<Void>(HttpStatus.CREATED);
+        UserResponse userResponse = new UserResponse();
+        userResponse.setName(user.getName());
+        userResponse.setId(user.getId());
+
+        return new ResponseEntity<UserResponse>(userResponse, HttpStatus.CREATED);
     }
 
     @RequestMapping(method = RequestMethod.PUT)
