@@ -1,2 +1,4 @@
-# docker-microservice-example
-Proyecto de ejemplo de uso de Docker con microservicios
+# Microservicio de ejemplo
+Microservicio que gestiona usuarios: alta, modificación, baja y lectura.
+
+En esta rama del proyecto se trata de probar la integración contínua con Travis CI.
