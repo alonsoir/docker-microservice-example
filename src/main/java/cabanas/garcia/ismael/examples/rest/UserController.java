@@ -41,13 +41,17 @@ public class UserController {
         return new ResponseEntity<UserResponse>(userResponse, HttpStatus.CREATED);
     }
 
-    @RequestMapping(method = RequestMethod.PUT)
-    public ResponseEntity<Void> update(@RequestBody User user){
+    @RequestMapping(method = RequestMethod.PUT, path = "/{id}")
+    public ResponseEntity<UserResponse> update(@RequestBody User user){
         LOGGER.debug("Updating user %s", user);
 
         userRepository.save(user);
 
-        return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
+        UserResponse userResponse = new UserResponse();
+        userResponse.setName(user.getName());
+        userResponse.setId(user.getId());
+
+        return new ResponseEntity<UserResponse>(userResponse, HttpStatus.OK);
     }
 
     @RequestMapping(method = RequestMethod.GET, path = "/{id}")
@@ -59,7 +63,7 @@ public class UserController {
         return new ResponseEntity<User>(user, HttpStatus.OK);
     }
 
-    @RequestMapping(method = RequestMethod.DELETE)
+    @RequestMapping(method = RequestMethod.DELETE, path = "/{id}")
     public ResponseEntity<Void> delete(@RequestBody User user){
         LOGGER.debug("Deleting user %s", user);
 
