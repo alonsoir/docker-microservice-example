@@ -38,8 +38,7 @@ public class CreateUsersSteps {
 
     @When("^the client requests for creating (.*) user$")
     public void theClientRequestsForCreatingUser(String userName) throws Throwable {
-        UserRequest userRequest = new UserRequest();
-        userRequest.setName(userName);
+        UserRequest userRequest = UserRequest.builder().name(userName).build();
 
         ResponseEntity<UserResponse> response = restTemplate.postForEntity("/users", userRequest, UserResponse.class);
 
@@ -87,9 +86,7 @@ public class CreateUsersSteps {
     public void theClientRequestForUpdatingHisNameTo(String newName) throws Throwable {
         String url = "/users/{id}";
 
-        UserRequest userRequestBody = new UserRequest();
-        userRequestBody.setId(tempUserRespose.getId());
-        userRequestBody.setName(newName);
+        UserRequest userRequestBody = UserRequest.builder().id(tempUserRespose.getId()).name(newName).build();
 
         HttpEntity<UserRequest> requestEntity = new HttpEntity<>(userRequestBody);
 

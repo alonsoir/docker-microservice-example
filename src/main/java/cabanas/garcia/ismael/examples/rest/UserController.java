@@ -37,9 +37,7 @@ public class UserController {
 
         userRepository.save(user);
 
-        UserResponse userResponse = new UserResponse();
-        userResponse.setName(user.getName());
-        userResponse.setId(user.getId());
+        UserResponse userResponse = UserResponse.builder().id(String.valueOf(user.getId())).name(user.getName()).build();
 
         final URI location = ServletUriComponentsBuilder
                 .fromCurrentServletMapping().path("/users/{id}").build()
@@ -54,9 +52,7 @@ public class UserController {
 
         userRepository.save(user);
 
-        UserResponse userResponse = new UserResponse();
-        userResponse.setName(user.getName());
-        userResponse.setId(user.getId());
+        UserResponse userResponse = UserResponse.builder().id(String.valueOf(user.getId())).name(user.getName()).build();
 
         return ResponseEntity.ok(userResponse);
     }
@@ -67,9 +63,7 @@ public class UserController {
 
         User user = userRepository.findOne(id);
 
-        UserResponse userResponse = new UserResponse();
-        userResponse.setName(user.getName());
-        userResponse.setId(user.getId());
+        UserResponse userResponse = UserResponse.builder().id(String.valueOf(user.getId())).name(user.getName()).build();
 
         return ResponseEntity.ok(userResponse);
     }
