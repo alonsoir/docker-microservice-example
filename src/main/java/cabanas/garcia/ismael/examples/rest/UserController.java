@@ -64,10 +64,10 @@ public class UserController {
     }
 
     @RequestMapping(method = RequestMethod.DELETE, path = "/{id}")
-    public ResponseEntity<Void> delete(@RequestBody User user){
-        LOGGER.debug("Deleting user %s", user);
+    public ResponseEntity<Void> delete(@PathVariable("id") Long id){
+        LOGGER.debug("Deleting user with identifier %s", id);
 
-        userRepository.delete(user);
+        userRepository.delete(id);
 
         return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
     }

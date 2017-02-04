@@ -24,3 +24,8 @@ Feature: API Rest for users management
     And the user has the following attributes:
       | attribute | type   | value     |
       | name      | String | Davicillo |
+
+  Scenario: Deleting a given user
+    Given the system knows about Irene user
+    When the client request for deleting her
+    Then the user is deleted
