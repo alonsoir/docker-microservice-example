@@ -49,7 +49,7 @@ public class CreateUsersSteps {
 
     @Then("^the user is created$")
     public void theUserIsCreated() throws Throwable {
-        assertThat(httpStatus, is(equalTo(HttpStatus.CREATED)));
+        assertHttpStatus(HttpStatus.CREATED);
     }
 
     @And("^the user has the following attributes:$")
@@ -80,7 +80,7 @@ public class CreateUsersSteps {
 
     @Then("^the user is got$")
     public void theUserIsGot() throws Throwable {
-        assertThat(httpStatus, is(equalTo(HttpStatus.OK)));
+        assertHttpStatus(HttpStatus.OK);
     }
 
     @When("^the client request for updating his name to (.*)")
@@ -101,7 +101,7 @@ public class CreateUsersSteps {
 
     @Then("^the user is updated$")
     public void theUserIsUpdated() throws Throwable {
-        assertThat(httpStatus, is(equalTo(HttpStatus.OK)));
+        assertHttpStatus(HttpStatus.OK);
     }
 
     @When("^the client request for deleting her$")
@@ -120,6 +120,11 @@ public class CreateUsersSteps {
 
     @Then("^the user is deleted$")
     public void theUserIsDeleted() throws Throwable {
-        assertThat(httpStatus, is(equalTo(HttpStatus.NO_CONTENT)));
+        assertHttpStatus(HttpStatus.NO_CONTENT);
     }
+
+    private void assertHttpStatus(HttpStatus httpStatus){
+        assertThat(this.httpStatus, is(equalTo(httpStatus)));
+    }
+
 }

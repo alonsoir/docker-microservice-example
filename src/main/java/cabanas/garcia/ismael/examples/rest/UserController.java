@@ -10,6 +10,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+
+import java.net.URI;
 
 /**
  * Created by XI317311 on 31/01/2017.
@@ -38,7 +41,11 @@ public class UserController {
         userResponse.setName(user.getName());
         userResponse.setId(user.getId());
 
-        return new ResponseEntity<UserResponse>(userResponse, HttpStatus.CREATED);
+        final URI location = ServletUriComponentsBuilder
+                .fromCurrentServletMapping().path("/users/{id}").build()
+                .expand(user.getId()).toUri();
+
+        return ResponseEntity.created(location).body(userResponse);
     }
 
     @RequestMapping(method = RequestMethod.PUT, path = "/{id}")
@@ -51,16 +58,20 @@ public class UserController {
         userResponse.setName(user.getName());
         userResponse.setId(user.getId());
 
-        return new ResponseEntity<UserResponse>(userResponse, HttpStatus.OK);
+        return ResponseEntity.ok(userResponse);
     }
 
     @RequestMapping(method = RequestMethod.GET, path = "/{id}")
-    public ResponseEntity<User> findById(@PathVariable("id") Long id){
-        LOGGER.debug("Getting user by id %s", id);
+    public ResponseEntity<UserResponse> findById(@PathVariable("id") Long id){
+        LOGGER.debug("Getting user by identifier %s", id);
 
         User user = userRepository.findOne(id);
 
-        return new ResponseEntity<User>(user, HttpStatus.OK);
+        UserResponse userResponse = new UserResponse();
+        userResponse.setName(user.getName());
+        userResponse.setId(user.getId());
+
+        return ResponseEntity.ok(userResponse);
     }
 
     @RequestMapping(method = RequestMethod.DELETE, path = "/{id}")
@@ -69,6 +80,6 @@ public class UserController {
 
         userRepository.delete(id);
 
-        return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
+        return ResponseEntity.noContent().build();
     }
 }
