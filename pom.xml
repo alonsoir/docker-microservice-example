@@ -24,53 +24,27 @@
       <gherkin.version>2.12.2</gherkin.version>
       <groovy.version>2.0.0</groovy.version>
       <gmaven.version>1.5</gmaven.version>
+      <full-artifact-name>target/${project.artifactId}-${project.version}.jar</full-artifact-name>
   </properties>
 
   <build>
     <plugins>
-        <!-- Plugin para compilar groovy -->
         <plugin>
-            <groupId>org.codehaus.gmavenplus</groupId>
-            <artifactId>gmavenplus-plugin</artifactId>
-            <version>${gmaven.version}</version>
+            <groupId>com.heroku.sdk</groupId>
+            <artifactId>heroku-maven-plugin</artifactId>
+            <version>1.1.1</version>
             <configuration>
-                <providerSelection>${gmavenProviderSelection}</providerSelection>
-                <sourceEncoding>UTF-8</sourceEncoding>
-                <testSources>
-                    <testSource>
-                        <directory>${project.basedir}/src/test/groovy</directory>
-                        <includes>
-                            <include>**/*.groovy</include>
-                        </includes>
-                    </testSource>
-                    <testSource>
-                        <directory>${project.basedir}/src/itest/groovy</directory>
-                        <includes>
-                            <include>**/*.groovy</include>
-                        </includes>
-                    </testSource>
-                </testSources>
+                <appName>YOUR APP NAME COMES HERE</appName>
+                <includeTarget>false</includeTarget>
+                <includes>
+                    <include>${basedir}/${full-artifact-name}</include>
+                </includes>
+                <jdkVersion>1.8</jdkVersion>
+                <processTypes>
+                    <web>java $JAVA_OPTS -jar ${full-artifact-name}</web>
+                </processTypes>
             </configuration>
-            <executions>
-                <execution>
-                    <goals>
-                        <goal>addTestSources</goal>
-                        <goal>generateStubs</goal>
-                        <goal>compile</goal>
-                        <goal>testGenerateStubs</goal>
-                        <goal>testCompile</goal>
-                    </goals>
-                </execution>
-            </executions>
-            <dependencies>
-                <dependency>
-                    <groupId>org.codehaus.groovy</groupId>
-                    <artifactId>groovy-all</artifactId>
-                    <version>${groovy.version}</version>
-                </dependency>
-            </dependencies>
         </plugin>
-
         <plugin>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-maven-plugin</artifactId>
