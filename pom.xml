@@ -30,160 +30,183 @@
   <build>
     <plugins>
         <plugin>
-            <groupId>com.heroku.sdk</groupId>
-            <artifactId>heroku-maven-plugin</artifactId>
-            <version>1.1.1</version>
-            <configuration>
-                <appName>users-microservice-example</appName>
-                <includeTarget>false</includeTarget>
-                <includes>
-                    <include>${basedir}/${full-artifact-name}</include>
-                </includes>
-                <jdkVersion>1.8</jdkVersion>
-                <processTypes>
-                    <web>java $JAVA_OPTS -jar ${full-artifact-name} --spring.profiles.active=heroku</web>
-                </processTypes>
-            </configuration>
-        </plugin>
-        <plugin>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-maven-plugin</artifactId>
         </plugin>
     </plugins>
   </build>
 
-  <dependencies>
+    <profiles>
+        <profile>
+            <id>heroku</id>
+            <activation>
+                <property>
+                    <name>heroku</name>
+                </property>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>com.heroku.sdk</groupId>
+                        <artifactId>heroku-maven-plugin</artifactId>
+                        <version>1.1.1</version>
+                        <configuration>
+                            <appName>users-microservice-example</appName>
+                            <includeTarget>false</includeTarget>
+                            <includes>
+                                <include>${full-artifact-name}</include>
+                            </includes>
+                            <jdkVersion>1.8</jdkVersion>
+                            <processTypes>
+                                <web>java $JAVA_OPTS -jar ${full-artifact-name} --spring.profiles.active=heroku</web>
+                            </processTypes>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>deploy</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 
-    <!-- Test dependencies  -->
-      <dependency>
-          <groupId>org.springframework.boot</groupId>
-          <artifactId>spring-boot-starter-test</artifactId>
-          <scope>test</scope>
-      </dependency>
+    <dependencies>
 
-      <!-- Cucumber BDD Dependencies -->
-      <dependency>
-          <groupId>info.cukes</groupId>
-          <artifactId>cucumber-core</artifactId>
-          <version>${cucumber.java.version}</version>
-          <scope>test</scope>
-      </dependency>
-      <dependency>
-          <groupId>info.cukes</groupId>
-          <artifactId>cucumber-java</artifactId>
-          <version>${cucumber.java.version}</version>
-          <scope>test</scope>
-      </dependency>
-      <dependency>
-          <groupId>info.cukes</groupId>
-          <artifactId>cucumber-junit</artifactId>
-          <version>${cucumber.java.version}</version>
-          <scope>test</scope>
-      </dependency>
-      <dependency>
-          <groupId>info.cukes</groupId>
-          <artifactId>gherkin</artifactId>
-          <version>${gherkin.version}</version>
-          <scope>test</scope>
-      </dependency>
-      <dependency>
-          <groupId>info.cukes</groupId>
-          <artifactId>cucumber-spring</artifactId>
-          <version>${cucumber.java.version}</version>
-          <scope>test</scope>
-      </dependency>
+        <!-- Test dependencies  -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
 
-      <dependency>
-          <groupId>org.codehaus.groovy</groupId>
-          <artifactId>groovy-all</artifactId>
-          <version>${groovy.version}</version>
-          <scope>test</scope>
-      </dependency>
+        <!-- Cucumber BDD Dependencies -->
+        <dependency>
+            <groupId>info.cukes</groupId>
+            <artifactId>cucumber-core</artifactId>
+            <version>${cucumber.java.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>info.cukes</groupId>
+            <artifactId>cucumber-java</artifactId>
+            <version>${cucumber.java.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>info.cukes</groupId>
+            <artifactId>cucumber-junit</artifactId>
+            <version>${cucumber.java.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>info.cukes</groupId>
+            <artifactId>gherkin</artifactId>
+            <version>${gherkin.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>info.cukes</groupId>
+            <artifactId>cucumber-spring</artifactId>
+            <version>${cucumber.java.version}</version>
+            <scope>test</scope>
+        </dependency>
 
-      <!--Spring boot dependencies -->
-      <dependency>
-          <groupId>org.springframework.boot</groupId>
-          <artifactId>spring-boot-starter-web</artifactId>
-      </dependency>
-      <dependency>
-          <groupId>org.springframework.boot</groupId>
-          <artifactId>spring-boot-starter-data-jpa</artifactId>
-      </dependency>
+        <dependency>
+            <groupId>org.codehaus.groovy</groupId>
+            <artifactId>groovy-all</artifactId>
+            <version>${groovy.version}</version>
+            <scope>test</scope>
+        </dependency>
 
-      <dependency>
-          <groupId>org.projectlombok</groupId>
-          <artifactId>lombok</artifactId>
-          <version>1.16.12</version>
-      </dependency>
+        <!--Spring boot dependencies -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+        </dependency>
 
-      <dependency>
-          <groupId>org.slf4j</groupId>
-          <artifactId>slf4j-api</artifactId>
-          <version>1.7.21</version>
-      </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.16.12</version>
+        </dependency>
 
-      <dependency>
-          <groupId>ch.qos.logback</groupId>
-          <artifactId>logback-classic</artifactId>
-          <version>1.1.8</version>
-      </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>1.7.21</version>
+        </dependency>
 
-      <dependency>
-          <groupId>ch.qos.logback</groupId>
-          <artifactId>logback-core</artifactId>
-          <version>1.1.8</version>
-      </dependency>
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>1.1.8</version>
+        </dependency>
 
-      <dependency>
-          <groupId>com.h2database</groupId>
-          <artifactId>h2</artifactId>
-          <scope>runtime</scope>
-      </dependency>
-      <dependency>
-          <groupId>org.postgresql</groupId>
-          <artifactId>postgresql</artifactId>
-          <version>9.4-1206-jdbc42</version>
-          <scope>runtime</scope>
-      </dependency>
-      <!--Spring boot dependencies -->
-      <dependency>
-          <groupId>org.springframework.boot</groupId>
-          <artifactId>spring-boot-starter-web</artifactId>
-      </dependency>
-      <dependency>
-          <groupId>org.springframework.boot</groupId>
-          <artifactId>spring-boot-starter-data-jpa</artifactId>
-      </dependency>
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-core</artifactId>
+            <version>1.1.8</version>
+        </dependency>
 
-      <dependency>
-          <groupId>org.slf4j</groupId>
-          <artifactId>slf4j-api</artifactId>
-          <version>1.7.21</version>
-      </dependency>
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>9.4-1206-jdbc42</version>
+            <scope>runtime</scope>
+        </dependency>
+        <!--Spring boot dependencies -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+        </dependency>
 
-      <dependency>
-          <groupId>ch.qos.logback</groupId>
-          <artifactId>logback-classic</artifactId>
-          <version>1.1.8</version>
-      </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>1.7.21</version>
+        </dependency>
 
-      <dependency>
-          <groupId>ch.qos.logback</groupId>
-          <artifactId>logback-core</artifactId>
-          <version>1.1.8</version>
-      </dependency>
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>1.1.8</version>
+        </dependency>
 
-      <dependency>
-          <groupId>com.h2database</groupId>
-          <artifactId>h2</artifactId>
-          <scope>runtime</scope>
-      </dependency>
-      <dependency>
-          <groupId>org.postgresql</groupId>
-          <artifactId>postgresql</artifactId>
-          <version>9.4-1206-jdbc42</version>
-          <scope>runtime</scope>
-      </dependency>
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-core</artifactId>
+            <version>1.1.8</version>
+        </dependency>
 
-  </dependencies>
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>9.4-1206-jdbc42</version>
+            <scope>runtime</scope>
+        </dependency>
+
+    </dependencies>
 </project>
