@@ -6,4 +6,13 @@ install: true
 git:
   depth: 3
 
-script: HEROKU_API_KEY=57adcd00-307e-4f65-af89-03c97e9e13ab mvn clean verify -Pheroku
+script: mvn clean verify
+
+deploy:
+  provider: heroku
+  api_key:
+    secure:
+  app:
+    feature_deploy_heroku_travis: users-microservice-example
+  on:
+    repo: ismaelcabanas/docker-microservice-example
