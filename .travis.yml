@@ -1,17 +1,15 @@
 language: java
 jdk:
-  - oraclejdk8
+- oraclejdk8
 sudo: false
 install: true
 git:
   depth: 3
-
 script: mvn clean verify
-
 deploy:
   provider: heroku
   api_key:
-    secure:
+    secure: UnLqOipWtPKfSpmvcWYNWcRs0v9xs7XSx5c2hwferVegmFKZ6cOXIGzdb8QdA6ZlgISOBL7NaL8PNopQNHZ8CYNE/GuKqZw0rcQwazYqfVPiC5gF+Yj2WT6nmdtTDELOlQ5clKIutq1FDLV+ocX/Oqyng9x3E3Mp7SbdCyv1mgfSBBIBDiozVZbEAf0PlteTXeKCMS0Y+szM76TcR28gzsaWju6eespjiO0Ur9P8gJvqF2jF1BwM9Gwdw6c4gLsTaSGe7xEcVgUigzNscKF8B4lbnC4hUqHsXitkvbhkks5Y5UFTDksV77roEMRBuJlL4sndk80kgC7AZQx1ZrH3aAuQHco/qx7h5Mp96sJzSR8GPFROQqkrZDlKI0YFDztujA5DNTh1lGSgirVoRO+huxIRHc3LQU8degdLgqrlm9FqtZMpZXKFK8dRF8APM2T1ZtFFUeiMu5f0budY3jEAI4x8oSny9SU6ZgsHDJha7o/QVhHOLJiAAzLRfweiLQobN1D1tbTRcJUaysi+nGCWj0t7Vm8iJQW4OFtU+98L36FmLrW/NBTZ9VCCCcgEnImIkPPvFmRs5iC88WK8/qtAhvnKSH2R9tZSWnV9xIx4YsZ2/zDRDupaWQxM91/EtgxJ/vTsuIGl2uhJXGTUq7Xx/upeScPXi4h4ibGSSUjCG4M=
   app:
     feature_deploy_heroku_travis: users-microservice-example
   on:
