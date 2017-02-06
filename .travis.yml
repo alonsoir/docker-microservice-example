@@ -6,4 +6,4 @@ install: true
 git:
   depth: 3
 
-script: mvn clean verify
+script: HEROKU_API_KEY=57adcd00-307e-4f65-af89-03c97e9e13ab mvn clean verify -Pheroku
