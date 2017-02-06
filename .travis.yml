@@ -5,7 +5,7 @@ sudo: false
 install: true
 git:
   depth: 3
-script: mvn clean verify
+#script: mvn clean verify
 deploy:
   skip_cleanup: true
   provider: heroku
