@@ -33,7 +33,7 @@ public class UserController {
 
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<UserResponse> create(@RequestBody User user){
-        LOGGER.debug("Creating user %s", user);
+        LOGGER.info("Creating this user %s", user);
 
         userRepository.save(user);
 
