@@ -13,5 +13,9 @@ spring:
       hibernate:
         show_sql: true
         format_sql: true
+  datasource:
+    url: ${JDBC_DATABASE_URL}
+    testWhileIdle: true
+    validationQuery:  SELECT 1
 server:
   port: ${PORT}
