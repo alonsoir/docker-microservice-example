@@ -6,15 +6,10 @@ server:
 spring:
   profiles: heroku
   jpa:
-    generate-ddl: true
-    hibernate:
-       ddl-auto: update
     properties:
       hibernate:
         show_sql: true
         format_sql: true
-  datasource:
-    testWhileIdle: true
-    validationQuery:  SELECT 1
+
 server:
   port: ${PORT}
