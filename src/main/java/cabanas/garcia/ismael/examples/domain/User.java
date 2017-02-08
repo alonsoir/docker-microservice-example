@@ -5,7 +5,7 @@ import javax.persistence.*;
 /**
  * Created by XI317311 on 31/01/2017.
  */
-@Entity
+@Entity(name = "USERS")
 public class User {
 
     @Id
