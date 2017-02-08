@@ -1,4 +1,4 @@
-Travis CI [![Build Status](https://travis-ci.org/ismaelcabanas/docker-microservice-example.svg?branch=feature_travis_ci)](https://travis-ci.org/ismaelcabanas/docker-microservice-example)
+Travis CI [![Build Status](https://travis-ci.org/ismaelcabanas/docker-microservice-example.svg?branch=feature_deploy_heroku_docker)](https://travis-ci.org/ismaelcabanas/docker-microservice-example)
 
 # User Microservice Example
 
