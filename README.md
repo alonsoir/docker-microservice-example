@@ -1,10 +1,24 @@
-Travis CI [![Build Status](https://travis-ci.org/ismaelcabanas/docker-microservice-example.svg?branch=feature_travis_ci)](https://travis-ci.org/ismaelcabanas/docker-microservice-example)
+Travis CI [![Build Status](https://travis-ci.org/ismaelcabanas/docker-microservice-example.svg?branch=feature_deploy_heroku_travis)](https://travis-ci.org/ismaelcabanas/docker-microservice-example)
 
-# Microservicio de ejemplo
-Microservicio que gestiona usuarios: alta, modificación, baja y lectura.
+# User Microservice Example
 
-En esta rama del proyecto se trata de probar el despliegue de una aplicación Spring Boot
-en Heroku.
+User Microservice Example es un microservicio escrito con Spring Boot que gestiona usuarios: alta, modificación, baja y lectura.
 
-El despliegue se realiza utilizando el plugin Maven para Heroku y también viendo 
-cómo se utilizada junto con Travis CI.
+En esta rama concreta del proyecto se trata de probar la integración contínua 
+con Travis CI. Travis se encargará de realizar el build de nuestro proyecto
+cuando se realice un push a Github sobre la rama.
+
+Este es el proyecto ejemplo de la entrada del [blog](https://pajarokillo.wordpress.com/2017/02/04/integracion-continua-con-travis-ci/). 
+
+# Desarrollo
+
+## Desarrollo local
+
+### build
+
+Se requiere tener instalado Java 8 y Maven 3.
+
+Para construir el proyecto y ejecutar los tests ejecutar el comando
+
+    mvn clean verify
+
